@@ -1,0 +1,50 @@
+<template>
+  <div id="myChart" class="echarts"></div>
+</template>
+
+<script>
+import * as echarts from 'echarts'
+export default {
+  props: {
+    options: {
+      type: Object
+    }
+  },
+  data () {
+    return {
+      myChart: null
+    }
+  },
+  mounted () {
+    this.drawLine()
+
+    window.onresize = () => {
+      this.myChart.resize()
+    }
+  },
+  computed: {
+    isCollapse () {
+      return this.$store.state.isCollapse
+    }
+  },
+  methods: {
+    drawLine () {
+      this.myChart = echarts.init(document.querySelector('#myChart'))
+      this.myChart.setOption(this.options)
+    }
+  },
+  watch: {
+    isCollapse () {
+      setTimeout(() => {
+        this.myChart.resize()
+      }, 300)
+    }
+  }
+}
+</script>
+
+<style lang="less" scoped>
+.echarts {
+  height: 400px;
+}
+</style>
