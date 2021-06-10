@@ -1,36 +1,62 @@
 <template>
-  <a-menu theme="light" mode="inline" class="nav" :collapse="isCollapse" :default-selected-keys="[currentPath]">
-    <a-menu-item key="1">
-      <a-icon type="home" />
-      <span>首页</span>
-    </a-menu-item>
-    <a-menu-item key="2">
-      <a-icon type="order" />
-      <span>订单</span>
-    </a-menu-item>
-    <a-menu-item key="3">
-      <a-icon type="upload" />
-      <span>明细</span>
-    </a-menu-item>
-    <a-menu-item key="4">
-      <a-icon type="user" />
-      <span>用户</span>
-    </a-menu-item>
+  <a-menu
+    theme="light"
+    mode="inline"
+    class="nav"
+    :collapse="isCollapse"
+    :default-selected-keys="['0']"
+    @select="selectMenuItem"
+  >
+    <template v-for="item in menuList">
+      <a-sub-menu :key="item.id" v-if="item.children.length > 0">
+        <span slot="title">
+          <a-icon :type="item.icon" />
+          <span>{{ item.title }}</span>
+        </span>
+        <a-menu-item v-for="subItem in item.children" :key="subItem.id">
+          <router-link :to="subItem.pageUrl">
+            {{ subItem.title }}
+          </router-link>
+        </a-menu-item>
+      </a-sub-menu>
+
+      <a-menu-item :key="item.id" v-else>
+        <router-link :to="item.pageUrl">
+          <a-icon :type="item.icon" />
+          <span>{{ item.title }}</span>
+        </router-link>
+      </a-menu-item>
+    </template>
   </a-menu>
 </template>
 
 <script>
 import { Menu, Icon } from 'ant-design-vue'
+import { menuList } from '@/assets/data/menu'
 export default {
   props: ['isCollapse'],
   components: {
     AMenu: Menu,
     AMenuItem: Menu.Item,
+    ASubMenu: Menu.SubMenu,
     AIcon: Icon
   },
   data () {
     return {
-      currentPath: location.pathname
+      selectedKeys: ['/home'],
+      menuList
+    }
+  },
+  watch: {
+    // 监听路由变化
+    $route (e) {
+      this.routes = e.matched.filter(items => items.meta.title)
+      this.selectedKeys = [e.path]
+    }
+  },
+  methods: {
+    selectMenuItem (key) {
+      this.$router.push({ path: key })
     }
   }
 }
