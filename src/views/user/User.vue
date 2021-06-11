@@ -1,3 +1,58 @@
 <template>
-  <div>User</div>
+  <div class="page-content">
+    <a-form :inline="true" class="search-wrap">
+      <a-form-item>
+        <a-input-search
+          placeholder="请输入要查询的手机号"
+          enter-button="搜索"
+          :maxLength="100"
+          size="large"
+          @search="onSearch"
+        />
+      </a-form-item>
+    </a-form>
+    <a-table :columns="columns" :data-source="dataTable">
+      <a slot="name" slot-scope="text">{{ text }}</a>
+    </a-table>
+  </div>
 </template>
+<script>
+import { Form, Input, Table } from 'ant-design-vue'
+import { columns } from '@/assets/data/user'
+
+const dataTable = [
+  {
+    key: '1',
+    phoneNum: '18575597667',
+    nickname: '喵无忌',
+    IDNumber: '134 8383 2831',
+    alipay: 'alibaba@163.com',
+    authentication: '已认证'
+  }
+]
+export default {
+  name: 'Buyer',
+  components: {
+    AForm: Form, AFormItem: Form.Item, AInputSearch: Input.Search, ATable: Table
+  },
+  data () {
+    return {
+      dataTable,
+      columns
+    }
+  },
+  methods: {
+    onSearch (value) {
+      console.log(value)
+    }
+  }
+}
+</script>
+<style lang="less" scoped>
+.search-wrap {
+  text-align: center;
+  .ant-input-search {
+    width: 520px;
+  }
+}
+</style>
