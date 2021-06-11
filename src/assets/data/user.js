@@ -2,9 +2,7 @@ export const columns = [
   {
     title: '用户手机号',
     dataIndex: 'phoneNum',
-    key: 'phoneNum',
-    slots: { title: 'customTitle' },
-    scopedSlots: { customRender: 'phoneNum' }
+    key: 'phoneNum'
   },
   {
     title: '用户昵称',
