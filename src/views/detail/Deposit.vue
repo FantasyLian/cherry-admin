@@ -10,7 +10,7 @@
         <a-input placeholder="请输入要查询手机号" />
       </a-form-item>
       <a-form-item>
-        <a-date-picker
+        <a-date-picker :locale="locale"
           placeholder="请选择时间日期"
           v-decorator="['date-time-picker', config]"
           show-time
@@ -33,6 +33,7 @@
 <script>
 import { Form, Input, Button, DatePicker, Table } from 'ant-design-vue'
 import { columns } from '@/assets/data/deposit'
+import locale from 'ant-design-vue/es/date-picker/locale/zh_CN'
 
 const dataTable = [
   {
@@ -61,15 +62,13 @@ export default {
   },
   data () {
     return {
+      locale,
       dataTable,
       columns,
       config: {
         rules: [{ type: 'object', required: true, message: '选择日期时间!' }]
       }
     }
-  },
-  beforeCreate () {
-    this.form = this.$form.createForm(this, { name: 'time_related_controls' })
   },
   methods: {
     handleSubmit (e) {
