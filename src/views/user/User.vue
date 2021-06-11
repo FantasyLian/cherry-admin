@@ -43,7 +43,7 @@ const dataTable = [
   }
 ]
 export default {
-  name: 'Buyer',
+  name: 'User',
   components: {
     AForm: Form, AFormItem: Form.Item, AInputSearch: Input.Search, ATable: Table
   },

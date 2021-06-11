@@ -2,12 +2,13 @@ export const columns = [
   {
     title: '订单编号',
     dataIndex: 'orderId',
-    key: 'name'
+    key: 'orderId'
   },
   {
     title: '购买商品',
     dataIndex: 'product',
-    key: 'product'
+    key: 'product',
+    width: 90
   },
   {
     title: '买家联系方式',
@@ -55,6 +56,7 @@ export const columns = [
     title: '状态',
     dataIndex: 'status',
     key: 'status',
-    ellipsis: true
+    scopedSlots: { customRender: 'status' },
+    width: 90
   }
 ]
