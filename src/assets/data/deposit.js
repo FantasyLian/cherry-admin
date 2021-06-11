@@ -1,6 +1,6 @@
 export const columns = [
   {
-    title: '充值号码',
+    title: '账号',
     dataIndex: 'phoneNum',
     key: 'phoneNum'
   },
@@ -16,9 +16,9 @@ export const columns = [
     ellipsis: true
   },
   {
-    title: '提现',
-    dataIndex: 'withdraw',
-    key: 'withdraw',
+    title: '类型',
+    dataIndex: 'tradeType',
+    key: 'tradeType',
     ellipsis: true
   },
   {

@@ -5,9 +5,10 @@ export const columns = [
     key: 'phoneNum'
   },
   {
-    title: '用户昵称',
-    dataIndex: 'nickname',
-    key: 'nickname'
+    title: '认证信息',
+    dataIndex: 'authentication',
+    key: 'authentication',
+    scopedSlots: { customRender: 'auth' }
   },
   {
     title: '身份证号',
@@ -16,15 +17,26 @@ export const columns = [
     ellipsis: true
   },
   {
-    title: '支付宝',
-    dataIndex: 'alipay',
-    key: 'alipay',
+    title: '出售次数',
+    dataIndex: 'sellTimes',
+    key: 'sellTimes'
+  },
+  {
+    title: '购买次数',
+    dataIndex: 'buyTimes',
+    key: 'buyTimes',
     ellipsis: true
   },
   {
-    title: '认证信息',
-    dataIndex: 'authentication',
-    key: 'authentication',
-    scopedSlots: { customRender: 'auth' }
+    title: '订单收入',
+    dataIndex: 'orderIncome',
+    key: 'orderIncome',
+    ellipsis: true
+  },
+  {
+    title: '累计提现',
+    dataIndex: 'totalWithdraw',
+    key: 'totalWithdraw',
+    ellipsis: true
   }
 ]

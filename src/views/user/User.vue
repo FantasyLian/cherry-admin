@@ -28,18 +28,24 @@ const dataTable = [
   {
     key: '1',
     phoneNum: '18575597667',
+    authentication: '1',
     nickname: '喵无忌',
     IDNumber: '134 8383 2831',
-    alipay: 'alibaba@163.com',
-    authentication: '1'
+    sellTimes: '50',
+    buyTimes: '0',
+    orderIncome: '1,000.00',
+    totalWithdraw: '500.00'
   },
   {
     key: '2',
     phoneNum: '18718920531',
+    authentication: '0',
     nickname: '喵大爷',
     IDNumber: '134 8383 2831',
-    alipay: 'alibaba@163.com',
-    authentication: '0'
+    sellTimes: '23',
+    buyTimes: '1',
+    orderIncome: '0.00',
+    totalWithdraw: '0.00'
   }
 ]
 export default {

@@ -6,13 +6,21 @@
       class="search-wrap"
       @submit="handleSubmit"
     >
-      <a-form-item>
+      <a-form-item label="账号：">
         <a-input placeholder="请输入要查询手机号" />
       </a-form-item>
-      <a-form-item>
-        <a-date-picker :locale="locale"
+      <a-form-item label="类型：">
+        <a-select default-value="0" style="width: 120px" @change="handleChange">
+          <a-select-option value="0"> 全部 </a-select-option>
+          <a-select-option value="1"> 订单收入 </a-select-option>
+          <a-select-option value="2"> 提现支出 </a-select-option>
+          <a-select-option value="3"> 转入钱包 </a-select-option>
+        </a-select>
+      </a-form-item>
+      <a-form-item label="时间：">
+        <a-date-picker
+          :locale="locale"
           placeholder="请选择时间日期"
-          v-decorator="['date-time-picker', config]"
           show-time
           format="YYYY-MM-DD HH:mm:ss"
         />
@@ -31,7 +39,7 @@
   </div>
 </template>
 <script>
-import { Form, Input, Button, DatePicker, Table } from 'ant-design-vue'
+import { Form, Input, Button, Select, DatePicker, Table } from 'ant-design-vue'
 import { columns } from '@/assets/data/deposit'
 import locale from 'ant-design-vue/es/date-picker/locale/zh_CN'
 
@@ -41,8 +49,8 @@ const dataTable = [
     phoneNum: '18575597667',
     nickname: '喵无忌',
     rechargeMoney: '3,200',
-    withdraw: '1234323446@qq.com',
-    transfer: '134 8383 2831',
+    tradeType: '订单收入',
+    transfer: '1234323446@qq.com',
     createTime: '2020.06.20  15:22:38'
   },
   {
@@ -50,37 +58,30 @@ const dataTable = [
     phoneNum: '18718920531',
     nickname: '喵大爷',
     rechargeMoney: '3,200',
-    withdraw: '1234323446@qq.com',
-    transfer: '134 8383 2831',
+    tradeType: '提现支出',
+    transfer: '1234323446@qq.com',
     createTime: '2020.06.25  18:34:12'
   }
 ]
 export default {
   name: 'Deposed',
   components: {
-    AForm: Form, AFormItem: Form.Item, AInput: Input, AButton: Button, ADatePicker: DatePicker, ATable: Table
+    AForm: Form, AFormItem: Form.Item, AInput: Input, AButton: Button, ASelect: Select, ASelectOption: Select.Option, ADatePicker: DatePicker, ATable: Table
   },
   data () {
     return {
       locale,
       dataTable,
       columns,
-      config: {
-        rules: [{ type: 'object', required: true, message: '选择日期时间!' }]
-      }
+      form: this.$form.createForm(this, { name: 'deposit' })
     }
   },
   methods: {
+    handleChange (value) {
+      console.log(`selected ${value}`)
+    },
     handleSubmit (e) {
       e.preventDefault()
-      this.form.validateFields((err, fieldsValue) => {
-        if (err) return
-        const values = {
-          ...fieldsValue,
-          'date-time-picker': fieldsValue['date-time-picker'].format('YYYY-MM-DD HH:mm:ss')
-        }
-        console.log('Received values of form: ', values)
-      })
     }
   }
 }
