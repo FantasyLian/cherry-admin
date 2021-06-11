@@ -1,5 +1,5 @@
 <template>
-  <section class="home-wrap">
+  <section class="page-content">
     <div class="row-wrap">
       <a-row :gutter="16">
         <a-col :span="8">
@@ -50,7 +50,11 @@
         <h2>每月充值统计</h2>
         <div class="select-charts">
           <span>2020年人工充值：¥74,238,987</span>
-          <a-select default-value="2020" class="select-filter" @change="handleChange">
+          <a-select
+            default-value="2020"
+            class="select-filter"
+            @change="handleChange"
+          >
             <a-select-option value="2019"> 2019年 </a-select-option>
             <a-select-option value="2020"> 2020年 </a-select-option>
             <a-select-option value="2021"> 2021年 </a-select-option>
@@ -90,23 +94,21 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-.home-wrap {
-  .row-wrap {
+.row-wrap {
+  margin-bottom: 20px;
+  .ant-row {
     margin-bottom: 20px;
-    .ant-row {
-      margin-bottom: 20px;
-    }
   }
-  .select-wrap {
-    display: flex;
-    justify-content: space-between;
-    h2 {
-      margin-bottom: 0;
-    }
-    .select-filter {
-      width: 120px;
-      margin-left: 10px;
-    }
+}
+.select-wrap {
+  display: flex;
+  justify-content: space-between;
+  h2 {
+    margin-bottom: 0;
+  }
+  .select-filter {
+    width: 120px;
+    margin-left: 10px;
   }
 }
 </style>
