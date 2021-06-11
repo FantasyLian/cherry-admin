@@ -13,6 +13,10 @@
     </a-form>
     <a-table :columns="columns" :data-source="dataTable">
       <a slot="name" slot-scope="text">{{ text }}</a>
+      <div slot="auth" slot-scope="auth">
+        <span v-if="auth === '1'" style="color: #1890ff"> 已认证 </span>
+        <span v-else> 未认证 </span>
+      </div>
     </a-table>
   </div>
 </template>
@@ -27,7 +31,15 @@ const dataTable = [
     nickname: '喵无忌',
     IDNumber: '134 8383 2831',
     alipay: 'alibaba@163.com',
-    authentication: '已认证'
+    authentication: '1'
+  },
+  {
+    key: '2',
+    phoneNum: '18718920531',
+    nickname: '喵大爷',
+    IDNumber: '134 8383 2831',
+    alipay: 'alibaba@163.com',
+    authentication: '0'
   }
 ]
 export default {

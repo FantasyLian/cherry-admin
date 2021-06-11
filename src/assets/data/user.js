@@ -2,7 +2,9 @@ export const columns = [
   {
     title: '用户手机号',
     dataIndex: 'phoneNum',
-    key: 'phoneNum'
+    key: 'phoneNum',
+    slots: { title: 'customTitle' },
+    scopedSlots: { customRender: 'phoneNum' }
   },
   {
     title: '用户昵称',
@@ -24,6 +26,7 @@ export const columns = [
   {
     title: '认证信息',
     dataIndex: 'authentication',
-    key: 'authentication'
+    key: 'authentication',
+    scopedSlots: { customRender: 'auth' }
   }
 ]
