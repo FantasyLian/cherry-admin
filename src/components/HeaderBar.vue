@@ -39,9 +39,6 @@ export default {
       isCollapse: false
     }
   },
-  mounted () {
-    console.log(this.$route.matched)
-  },
   methods: {
     // 切换隐藏显示左侧导航栏
     toggleMenu () {
