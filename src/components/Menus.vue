@@ -4,23 +4,23 @@
     mode="inline"
     class="nav"
     :collapse="isCollapse"
-    :default-selected-keys="['0']"
+    :default-selected-keys="[$route.path]"
     @select="selectMenuItem"
   >
     <template v-for="item in menuList">
-      <a-sub-menu :key="item.id" v-if="item.children.length > 0">
+      <a-sub-menu :key="item.pageUrl" v-if="item.children.length > 0">
         <span slot="title">
           <a-icon :type="item.icon" />
           <span>{{ item.title }}</span>
         </span>
-        <a-menu-item v-for="subItem in item.children" :key="subItem.id">
+        <a-menu-item v-for="subItem in item.children" :key="subItem.pageUrl">
           <router-link :to="subItem.pageUrl">
             {{ subItem.title }}
           </router-link>
         </a-menu-item>
       </a-sub-menu>
 
-      <a-menu-item :key="item.id" v-else>
+      <a-menu-item :key="item.pageUrl" v-else>
         <router-link :to="item.pageUrl">
           <a-icon :type="item.icon" />
           <span>{{ item.title }}</span>
@@ -43,7 +43,6 @@ export default {
   },
   data () {
     return {
-      selectedKeys: ['/home'],
       menuList
     }
   },

@@ -9,7 +9,7 @@ export const menuList = [
   {
     id: '1',
     title: '订单',
-    icon: 'ordered-list',
+    icon: 'table',
     pageUrl: '/buyer',
     children: [
       { id: '1-1', title: '买家订单', pageUrl: '/buyer' },
@@ -19,7 +19,7 @@ export const menuList = [
   {
     id: '2',
     title: '明细',
-    icon: 'pic-left',
+    icon: 'profile',
     pageUrl: '/balance',
     children: [
       { id: '2-1', title: '余额明细', pageUrl: '/balance' },
