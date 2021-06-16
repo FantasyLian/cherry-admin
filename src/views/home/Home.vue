@@ -6,21 +6,21 @@
           <a-card hoverable class="card-wrap">
             <h3><small>¥</small>200,000</h3>
             <p>今日充值</p>
-            <span>比昨日增加了 ￥10,000</span>
+            <p>比昨日增加了<small>¥</small>10,000</p>
           </a-card>
         </a-col>
         <a-col :span="8">
           <a-card hoverable class="card-wrap">
             <h3><small>¥</small>19,340</h3>
             <p>今日提现</p>
-            <span>比昨日减少了 ￥ 10,000</span>
+            <p>比昨日减少了<small>¥</small>10,000</p>
           </a-card>
         </a-col>
         <a-col :span="8">
           <a-card hoverable class="card-wrap">
             <h3><small>¥</small>3,400</h3>
             <p>今日交易额</p>
-            <span>比昨日减少了 ￥ 10,000</span>
+            <p>比昨日减少了<small>¥</small>10,000</p>
           </a-card>
         </a-col>
       </a-row>
@@ -98,6 +98,27 @@ export default {
   margin-bottom: 20px;
   .ant-row {
     margin-bottom: 20px;
+  }
+  .card-wrap {
+    text-align: center;
+    h3 {
+      font-size: 20px;
+      font-weight: bold;
+      line-height: 27px;
+      small {
+        font-size: 14px;
+        margin-right: 5px;
+      }
+    }
+    p {
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 25px;
+      margin: 12px auto 30px;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
   }
 }
 .select-wrap {
