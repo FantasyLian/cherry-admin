@@ -16,20 +16,27 @@
               v-decorator="[
                 'account',
                 {
-                  rules: [{ required: true, message: '请输入账号/ID!' }],
-                },
+                  rules: [{ required: true, message: '请输入账号/ID!' }]
+                }
               ]"
             />
           </a-form-item>
-          <a-form-item label="密码：">
-            <a-input
-              v-decorator="[
-                'password',
-                {
-                  rules: [{ required: true, message: '请输入密码!' }],
-                },
-              ]"
-            />
+          <a-form-item label="验证码">
+            <a-row :gutter="8">
+              <a-col :span="16">
+                <a-input
+                  v-decorator="[
+                    'captcha',
+                    {
+                      rules: [{ required: true, message: '请输入验证码!'}]
+                    }
+                  ]"
+                />
+              </a-col>
+              <a-col :span="8">
+                <a-button @click="handleGetCaptcha">获取验证码</a-button>
+              </a-col>
+            </a-row>
           </a-form-item>
           <a-form-item>
             <a-button type="primary" class="login-button" html-type="submit">
@@ -42,10 +49,11 @@
   </section>
 </template>
 <script>
-import { Form, Button, Input } from 'ant-design-vue'
+import { Form, Button, Input, Row, Col } from 'ant-design-vue'
+import { getCaptcha } from '@/api'
 export default {
   components: {
-    AForm: Form, AFormItem: Form.Item, AButton: Button, AInput: Input
+    AForm: Form, AFormItem: Form.Item, AButton: Button, AInput: Input, ARow: Row, ACol: Col
   },
   data () {
     return {
@@ -61,10 +69,11 @@ export default {
         }
       })
     },
-    handleSelectChange (value) {
-      console.log(value)
-      this.form.setFieldsValue({
-        note: `Hi, ${value === 'male' ? 'man' : 'lady'}!`
+    async handleGetCaptcha () {
+      await getCaptcha().then(({ code, data }) => {
+        if (code === 200) {
+          console.log(data)
+        }
       })
     }
   }
