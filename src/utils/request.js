@@ -1,5 +1,5 @@
 import axios from 'axios'
-import local from '@/util/local'
+import local from '@/utils/local'
 import Config from '@/setting'
 import { Message } from 'ant-design-vue'
 
