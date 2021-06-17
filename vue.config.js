@@ -1,6 +1,9 @@
 const CompressionPlugin = require('compression-webpack-plugin')
 const productionGzipExtensions = ['js', 'css']
 
+const defaultSettings = require('./src/setting')
+const siteName = defaultSettings.title
+
 module.exports = {
   publicPath: process.env.NODE_ENV === 'development' ? '/' : '',
   outputDir: 'dist',
@@ -10,7 +13,7 @@ module.exports = {
 
   chainWebpack: config => {
     config.plugin('html').tap(args => {
-      args[0].title = '车厘子交易平台'
+      args[0].title = siteName
       return args
     })
   },
@@ -29,6 +32,7 @@ module.exports = {
   },
 
   devServer: {
+    hot: true,
     open: true, // 配置自动启动浏览器
     overlay: {
       warning: false,

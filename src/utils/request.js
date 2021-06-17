@@ -1,18 +1,16 @@
 import axios from 'axios'
-import { Toast } from 'vant'
-import { judgeAPP, getToken, getLogout, getDeviceInfo } from '@/utils/auth'
+import local from '@/util/local'
 import Config from '@/setting'
-import md5 from 'js-md5'
+import { Message } from 'ant-design-vue'
 
 function startLoading () {
-  Toast.loading({
-    message: '加载中...',
-    loadingType: 'spinner'
+  Message.loading({
+    content: '加载中...'
   })
 }
 
 function endLoading () {
-  Toast.clear()
+  Message.destroy()
 }
 
 const instance = axios.create({
@@ -28,13 +26,8 @@ const instance = axios.create({
 instance.interceptors.request.use(
   config => {
     startLoading()
-    const token = getToken()
-    const timestamp = new Date().getTime()
+    const token = local.get('token')
     config.headers.token = token
-    config.headers.sign = md5(token + getDeviceInfo().os + getDeviceInfo().deviceId + timestamp)
-    config.headers.os = getDeviceInfo().os
-    config.headers.deviceId = getDeviceInfo().deviceId
-    config.headers.timestamp = timestamp
     return config
   },
   error => {
@@ -49,18 +42,9 @@ instance.interceptors.response.use(
     const { status } = response
     if (status === 200) {
       if (response.data.code === 600) {
-        Toast({ message: '请重新登录', duration: 1500 })
-        getLogout()
-      } if (response.data.code === 700 || response.data.code === 800) {
-        try {
-          if (judgeAPP() === 'iOS') {
-            window.webkit.messageHandlers.showVerify().postMessage(response.data.code)
-          }
-        } catch (e) {
-          window.wishtree.showVerify(response.data.code)
-        }
+        Message({ content: '请重新登录', duration: 1500 })
       } else if (response.data.code !== 200) {
-        Toast({ message: response.data.msg, duration: 1500 })
+        Message({ content: response.data.msg, duration: 1500 })
       }
     }
     return response
