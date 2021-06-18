@@ -42,9 +42,9 @@ instance.interceptors.response.use(
     const { status } = response
     if (status === 200) {
       if (response.data.code === 600) {
-        Message({ content: '请重新登录', duration: 1500 })
+        Message.warn({ content: '请重新登录', duration: 1500 })
       } else if (response.data.code !== 200) {
-        Message({ content: response.data.msg, duration: 1500 })
+        Message.warn({ content: response.data.msg, duration: 1500 })
       }
     }
     return response

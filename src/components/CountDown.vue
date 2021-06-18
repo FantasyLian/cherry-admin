@@ -1,5 +1,5 @@
 <template>
-  <a-button class="count-down-btn" @click="fn">{{ context }}</a-button>
+  <a-button type="primary" class="count-down-btn" @click="fn">{{ context }}</a-button>
 </template>
 <script>
 import { Button } from 'ant-design-vue'
