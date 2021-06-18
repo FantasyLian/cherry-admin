@@ -7,11 +7,30 @@ import request from '@/utils/request'
  */
 export function getCaptcha (params) {
   return new Promise((resolve, reject) => {
-    request({ url: '/code/send', method: 'GET', params }).then(res => {
-      resolve(res.data)
-    }).catch(err => {
-      reject(err)
-    })
+    request({ url: '/code/send', method: 'GET', params })
+      .then(res => {
+        resolve(res.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
+
+/**
+ * 登录
+ * @param {*} data
+ * @returns
+ */
+export function login (data) {
+  return new Promise((resolve, reject) => {
+    request({ url: '/login', method: 'POST', data })
+      .then(res => {
+        resolve(res.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
   })
 }
 
