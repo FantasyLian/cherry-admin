@@ -7,7 +7,7 @@
       @submit="handleSubmit"
     >
       <a-form-item label="账号：">
-        <a-input placeholder="请输入要查询手机号" />
+        <a-input placeholder="请输入要查询手机号"/>
       </a-form-item>
       <a-form-item label="类型：">
         <a-select default-value="0" style="width: 120px" @change="handleChange">
@@ -42,6 +42,7 @@
 import { Form, Input, Button, Select, DatePicker, Table } from 'ant-design-vue'
 import { columns } from '@/assets/data/deposit'
 import locale from 'ant-design-vue/es/date-picker/locale/zh_CN'
+import { getWithdrawal } from '@/api/index'
 
 const dataTable = [
   {
@@ -66,7 +67,14 @@ const dataTable = [
 export default {
   name: 'Deposed',
   components: {
-    AForm: Form, AFormItem: Form.Item, AInput: Input, AButton: Button, ASelect: Select, ASelectOption: Select.Option, ADatePicker: DatePicker, ATable: Table
+    AForm: Form,
+    AFormItem: Form.Item,
+    AInput: Input,
+    AButton: Button,
+    ASelect: Select,
+    ASelectOption: Select.Option,
+    ADatePicker: DatePicker,
+    ATable: Table
   },
   data () {
     return {
@@ -77,11 +85,23 @@ export default {
     }
   },
   methods: {
+    async getWithdrawalList () {
+      await getWithdrawal().then(({ code, data }) => {
+        if (code === 200) {
+          console.log(data)
+        }
+      })
+    },
     handleChange (value) {
       console.log(`selected ${value}`)
     },
     handleSubmit (e) {
       e.preventDefault()
+      this.form.validateFields((err, values) => {
+        if (!err) {
+          console.log(values)
+        }
+      })
     }
   }
 }

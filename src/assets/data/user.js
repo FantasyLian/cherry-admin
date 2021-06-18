@@ -1,42 +1,42 @@
 export const columns = [
   {
     title: '用户手机号',
-    dataIndex: 'phoneNum',
-    key: 'phoneNum'
+    dataIndex: 'mobileNo',
+    key: 'mobileNo'
   },
   {
     title: '认证信息',
-    dataIndex: 'authentication',
-    key: 'authentication',
+    dataIndex: 'facePass',
+    key: 'facePass',
     scopedSlots: { customRender: 'auth' }
   },
   {
     title: '身份证号',
-    dataIndex: 'IDNumber',
-    key: 'IDNumber',
+    dataIndex: 'certNo',
+    key: 'certNo',
     ellipsis: true
   },
   {
     title: '出售次数',
-    dataIndex: 'sellTimes',
-    key: 'sellTimes'
+    dataIndex: 'sellCount',
+    key: 'sellCount'
   },
   {
     title: '购买次数',
-    dataIndex: 'buyTimes',
-    key: 'buyTimes',
+    dataIndex: 'buyCount',
+    key: 'buyCount',
     ellipsis: true
   },
   {
     title: '订单收入',
-    dataIndex: 'orderIncome',
-    key: 'orderIncome',
+    dataIndex: 'totalOrderIncome',
+    key: 'totalOrderIncome',
     ellipsis: true
   },
   {
     title: '累计提现',
-    dataIndex: 'totalWithdraw',
-    key: 'totalWithdraw',
+    dataIndex: 'totalWithdrawal',
+    key: 'totalWithdrawal',
     ellipsis: true
   }
 ]

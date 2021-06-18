@@ -11,10 +11,10 @@
         />
       </a-form-item>
     </a-form>
-    <a-table :columns="columns" :data-source="dataTable">
+    <a-table :columns="columns" :data-source="dataTable" rowKey="userId">
       <a slot="name" slot-scope="text">{{ text }}</a>
       <div slot="auth" slot-scope="auth">
-        <span v-if="auth === '1'" style="color: #1890ff"> 已认证 </span>
+        <span v-if="auth === true" style="color: #1890ff"> 已认证 </span>
         <span v-else> 未认证 </span>
       </div>
     </a-table>
@@ -23,35 +23,16 @@
 <script>
 import { Form, Input, Table } from 'ant-design-vue'
 import { columns } from '@/assets/data/user'
+import { getUserInfo } from '@/api/index'
 
-const dataTable = [
-  {
-    key: '1',
-    phoneNum: '18575597667',
-    authentication: '1',
-    nickname: '喵无忌',
-    IDNumber: '134 8383 2831',
-    sellTimes: '50',
-    buyTimes: '0',
-    orderIncome: '1,000.00',
-    totalWithdraw: '500.00'
-  },
-  {
-    key: '2',
-    phoneNum: '18718920531',
-    authentication: '0',
-    nickname: '喵大爷',
-    IDNumber: '134 8383 2831',
-    sellTimes: '23',
-    buyTimes: '1',
-    orderIncome: '0.00',
-    totalWithdraw: '0.00'
-  }
-]
+const dataTable = []
 export default {
   name: 'User',
   components: {
-    AForm: Form, AFormItem: Form.Item, AInputSearch: Input.Search, ATable: Table
+    AForm: Form,
+    AFormItem: Form.Item,
+    AInputSearch: Input.Search,
+    ATable: Table
   },
   data () {
     return {
@@ -59,9 +40,21 @@ export default {
       columns
     }
   },
+  created () {
+    this.getUserList()
+  },
   methods: {
+    async getUserList (mobile) {
+      await getUserInfo({
+        mobile: mobile
+      }).then(({ code, data }) => {
+        if (code === 200) {
+          this.dataTable = data
+        }
+      })
+    },
     onSearch (value) {
-      console.log(value)
+      this.getUserList(value)
     }
   }
 }
