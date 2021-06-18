@@ -11,7 +11,7 @@
         />
       </a-form-item>
     </a-form>
-    <a-table :columns="columns" :data-source="dataTable">
+    <a-table :columns="columns" :data-source="dataTable" :rowKey="(record, index) => { return index }">
       <a slot="name" slot-scope="text">{{ text }}</a>
     </a-table>
   </div>
@@ -19,35 +19,7 @@
 <script>
 import { Form, Input, Table } from 'ant-design-vue'
 import { columns } from '@/assets/data/buyer'
-
-const dataTable = [
-  {
-    key: '1',
-    orderId: '66576534567785',
-    product: '宝石',
-    buyerContact: '134 8383 2831',
-    createTime: '2020.06.25  18:34:12',
-    tradingTime: '2020.06.25  18:34:14',
-    account: '1961 9023',
-    quantity: '100000000',
-    unitPrice: '0.9',
-    totalPrice: '90,000,000',
-    status: '已完成'
-  },
-  {
-    key: '2',
-    orderId: '66576534567785',
-    product: '宝石',
-    buyerContact: '134 8383 2831',
-    createTime: '2020.06.25  18:34:12',
-    tradingTime: '2020.06.25  18:34:14',
-    account: '1961 9023',
-    quantity: '100000000',
-    unitPrice: '0.9',
-    totalPrice: '90,000,000',
-    status: '已完成'
-  }
-]
+import { getBuyerOrder } from '@/api'
 export default {
   name: 'Buyer',
   components: {
@@ -55,13 +27,24 @@ export default {
   },
   data () {
     return {
-      dataTable,
-      columns
+      dataTable: [],
+      columns,
+      keywords: ''
     }
+  },
+  mounted () {
+    this.initList()
   },
   methods: {
     onSearch (value) {
-      console.log(value)
+      this.initList(value)
+    },
+    async initList (words) {
+      await getBuyerOrder({ queryVal: words }).then(({ code, data }) => {
+        if (code === 200) {
+          this.dataTable = data
+        }
+      })
     }
   }
 }
