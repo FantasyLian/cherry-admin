@@ -27,7 +27,7 @@ instance.interceptors.request.use(
   config => {
     startLoading()
     const token = local.get('token')
-    config.headers.token = token
+    config.headers.token = token || ''
     return config
   },
   error => {

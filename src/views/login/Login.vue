@@ -15,19 +15,27 @@
             <a-input
               v-decorator="[
                 'account',
-                {
-                  rules: [{ required: true, message: '请输入账号/ID!' }],
-                },
+                { rules: [{ required: true, message: '请输入账号/ID!' }] },
               ]"
             />
           </a-form-item>
           <a-form-item label="验证码">
             <a-row :gutter="8">
               <a-col :span="16">
-                <a-input v-decorator="['captcha', {rules: [{ required: true, message: '请输入验证码!' }]}]" />
+                <a-input
+                  v-decorator="[
+                    'captcha',
+                    { rules: [{ required: true, message: '请输入验证码!' }] },
+                  ]"
+                />
               </a-col>
               <a-col :span="8">
-                <count-down :fn="handleGetCaptcha" :deftext="'获取验证码'" ref="count" :second="6" />
+                <count-down
+                  :fn="handleGetCaptcha"
+                  :deftext="'获取验证码'"
+                  ref="count"
+                  :second="60"
+                />
               </a-col>
             </a-row>
           </a-form-item>
@@ -43,8 +51,9 @@
 </template>
 <script>
 import { Form, Button, Input, Row, Col } from 'ant-design-vue'
-import { getCaptcha } from '@/api'
+import { getCaptcha, login } from '@/api'
 import CountDown from '@/components/CountDown'
+import local from '@/utils/local'
 export default {
   components: {
     AForm: Form,
@@ -57,25 +66,38 @@ export default {
   },
   data () {
     return {
-      form: this.$form.createForm(this, { name: 'coordinated' })
+      form: this.$form.createForm(this)
     }
   },
   methods: {
+    // 提交表单
     handleSubmit (e) {
       e.preventDefault()
       this.form.validateFields((err, values) => {
         if (!err) {
-          console.log('Received values of form: ', values)
+          this.handleLogin(values)
         }
       })
     },
 
     // 获取验证码
     async handleGetCaptcha () {
-      this.$refs.count.countDown()
-      await getCaptcha().then(({ code, data }) => {
+      await getCaptcha({ mobile: this.form.getFieldValue('account') }).then(({ code, msg }) => {
         if (code === 200) {
-          console.log(data)
+          this.$refs.count.countDown()
+          this.$message.success({ content: msg })
+        }
+      })
+    },
+
+    // 登录
+    async handleLogin (obj) {
+      await login({ mobile: obj.account, code: obj.captcha }).then(({ code, data }) => {
+        if (code === 200) {
+          this.$message.success({ content: `登录成功！欢迎${data.mobile}` })
+          local.set('token', data.token)
+          local.set('mobile', data.mobile)
+          this.$router.replace('/home')
         }
       })
     }

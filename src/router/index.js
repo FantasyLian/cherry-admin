@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Layout from '@/views/layout/Layout'
+import local from '@/utils/local'
+
 const routerPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push (location) {
   return routerPush.call(this, location).catch(error => error)
@@ -77,6 +79,28 @@ const routes = [
 
 const router = new VueRouter({
   routes
+})
+
+/**
+ * @param {to} 将要去的路由
+ * @param {from} 出发的路由
+ * @param {next} 执行下一步
+ */
+router.beforeEach((to, from, next) => {
+  const LOGIN_URL = '/login'
+  const url = to.path
+  const user = local.get('token')
+
+  if (url === LOGIN_URL) {
+    local.remove('token')
+  }
+
+  // 判断是否登录
+  if (!user && url !== LOGIN_URL) {
+    next({ path: LOGIN_URL })
+  } else {
+    next()
+  }
 })
 
 export default router

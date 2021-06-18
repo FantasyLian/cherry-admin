@@ -14,7 +14,7 @@
     </div>
     <a-dropdown>
       <a class="ant-dropdown-link" @click="(e) => e.preventDefault()">
-        管理员 <a-icon type="down" />
+        {{ userName }} <a-icon type="down" />
       </a>
       <a-menu slot="overlay" @click="handleCommand">
         <a-menu-item key="1"> 修改登录密码 </a-menu-item>
@@ -25,6 +25,7 @@
 </template>
 <script>
 import { Icon, Breadcrumb, Dropdown, Menu } from 'ant-design-vue'
+import local from '@/utils/local'
 export default {
   components: {
     AIcon: Icon,
@@ -36,8 +37,14 @@ export default {
   },
   data () {
     return {
-      isCollapse: false
+      isCollapse: false,
+      userName: '管理员'
     }
+  },
+  created () {
+    this.$nextTick(() => {
+      this.userName = local.get('mobile')
+    })
   },
   methods: {
     // 切换隐藏显示左侧导航栏
