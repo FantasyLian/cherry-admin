@@ -7,7 +7,15 @@
       @submit="handleSubmit"
     >
       <a-form-item label="账号：">
-        <a-input placeholder="请输入要查询手机号"/>
+        <a-input
+          placeholder="请输入要查询手机号"
+          v-decorator="[
+            'mobile',
+            {
+              rules: [{ required: false, message: 'Pleaseinput your nickname' }]
+            }
+          ]"
+        />
       </a-form-item>
       <a-form-item label="类型：">
         <a-select default-value="0" style="width: 120px" @change="handleChange">
@@ -23,6 +31,7 @@
           placeholder="请选择时间日期"
           show-time
           format="YYYY-MM-DD HH:mm:ss"
+          @change="onChange"
         />
       </a-form-item>
       <a-form-item>
@@ -81,8 +90,13 @@ export default {
       locale,
       dataTable,
       columns,
+      type: '',
+      date: '',
       form: this.$form.createForm(this, { name: 'deposit' })
     }
+  },
+  created () {
+    this.getWithdrawalList()
   },
   methods: {
     async getWithdrawalList () {
@@ -92,14 +106,26 @@ export default {
         }
       })
     },
+    // 选择日期
+    onChange (dateString) {
+      this.date = dateString
+      console.log(dateString)
+    },
+    // 选择状态
     handleChange (value) {
+      this.type = value
       console.log(`selected ${value}`)
     },
     handleSubmit (e) {
       e.preventDefault()
-      this.form.validateFields((err, values) => {
+      this.form.validateFields(async (err, values) => {
         if (!err) {
           console.log(values)
+          await getWithdrawal().then(({ code, data }) => {
+            if (code === 200) {
+              console.log(data)
+            }
+          })
         }
       })
     }
