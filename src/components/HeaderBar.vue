@@ -17,7 +17,7 @@
         {{ userName }} <a-icon type="down" />
       </a>
       <a-menu slot="overlay" @click="handleCommand">
-        <a-menu-item key="1"> 修改登录密码 </a-menu-item>
+        <!-- <a-menu-item key="1"> 修改登录密码 </a-menu-item> -->
         <a-menu-item key="2"> 退出登录 </a-menu-item>
       </a-menu>
     </a-dropdown>
