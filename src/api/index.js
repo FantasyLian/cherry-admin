@@ -44,3 +44,18 @@ export function getBuyerOrder (params) {
     })
   })
 }
+
+/**
+ * 卖家订单列表
+ * @param {*} params
+ * @returns
+ */
+export function getSellerOrder (params) {
+  return new Promise((resolve, reject) => {
+    request({ url: '/order/sale/list', method: 'GET', params }).then(res => {
+      resolve(res.data)
+    }).catch(err => {
+      reject(err)
+    })
+  })
+}

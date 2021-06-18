@@ -1,20 +1,18 @@
 export const columns = [
   {
     title: '订单编号',
-    dataIndex: 'orderId',
-    key: 'orderId'
+    dataIndex: 'productId',
+    key: 'productId'
   },
   {
     title: '出售商品',
     dataIndex: 'product',
-    key: 'product',
-    width: 90
+    key: 'product'
   },
   {
     title: '卖家账号',
-    dataIndex: 'sellerAccount',
-    key: 'sellerAccount',
-    ellipsis: true
+    dataIndex: 'userId',
+    key: 'userId'
   },
   {
     title: '创建时间',
@@ -23,43 +21,38 @@ export const columns = [
   },
   {
     title: '售出时间',
-    dataIndex: 'tradingTime',
-    key: 'tradingTime'
+    dataIndex: 'finishTime',
+    key: 'finishTime'
   },
   {
     title: '数量（颗）',
-    dataIndex: 'quantity',
-    key: 'quantity',
-    ellipsis: true
+    dataIndex: 'gemNum',
+    key: 'gemNum'
   },
   {
     title: '单价（元/颗）',
     dataIndex: 'unitPrice',
-    key: 'unitPrice',
-    ellipsis: true
+    key: 'unitPrice'
   },
   {
     title: 'WGC账号',
-    dataIndex: 'WGCAccount',
-    key: 'WGCAccount',
-    ellipsis: true
+    dataIndex: 'wgcId',
+    key: 'wgcId'
   },
   {
     title: '总价',
-    dataIndex: 'totalPrice',
-    key: 'totalPrice',
-    ellipsis: true
+    dataIndex: 'price',
+    key: 'price'
   },
   {
     title: '实际收入',
-    dataIndex: 'income',
-    key: 'income',
-    ellipsis: true
+    dataIndex: 'realPrice',
+    key: 'realPrice'
   },
   {
     title: '状态',
-    dataIndex: 'status',
-    key: 'status',
+    dataIndex: 'statusVal',
+    key: 'statusVal',
     scopedSlots: { customRender: 'status' },
     width: 90
   }
