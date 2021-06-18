@@ -1,31 +1,34 @@
 export const columns = [
   {
     title: '账号',
-    dataIndex: 'phoneNum',
-    key: 'phoneNum'
+    dataIndex: 'mobileNo',
+    key: 'mobileNo'
   },
   {
     title: '用户昵称',
-    dataIndex: 'nickname',
-    key: 'nickname'
+    dataIndex: 'name',
+    key: 'name'
   },
   {
     title: '金额（元）',
-    dataIndex: 'rechargeMoney',
-    key: 'rechargeMoney',
+    dataIndex: 'amount',
+    key: 'amount',
     ellipsis: true
   },
   {
     title: '类型',
-    dataIndex: 'tradeType',
-    key: 'tradeType',
+    dataIndex: 'typeVal',
+    key: 'typeVal',
     ellipsis: true
   },
   {
-    title: '转入余额',
-    dataIndex: 'transfer',
-    key: 'transfer',
-    ellipsis: true
+    title: '支付宝账号',
+    dataIndex: 'alipayUid',
+    key: 'alipayUid',
+    ellipsis: true,
+    scopedSlots: {
+      customRender: 'pay'
+    }
   },
   {
     title: '时间',
