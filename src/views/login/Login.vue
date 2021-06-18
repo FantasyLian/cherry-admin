@@ -16,25 +16,18 @@
               v-decorator="[
                 'account',
                 {
-                  rules: [{ required: true, message: '请输入账号/ID!' }]
-                }
+                  rules: [{ required: true, message: '请输入账号/ID!' }],
+                },
               ]"
             />
           </a-form-item>
           <a-form-item label="验证码">
             <a-row :gutter="8">
               <a-col :span="16">
-                <a-input
-                  v-decorator="[
-                    'captcha',
-                    {
-                      rules: [{ required: true, message: '请输入验证码!'}]
-                    }
-                  ]"
-                />
+                <a-input v-decorator="['captcha', {rules: [{ required: true, message: '请输入验证码!' }]}]" />
               </a-col>
               <a-col :span="8">
-                <a-button @click="handleGetCaptcha">获取验证码</a-button>
+                <count-down :fn="handleGetCaptcha" :deftext="'获取验证码'" ref="count" :second="6" />
               </a-col>
             </a-row>
           </a-form-item>
@@ -51,9 +44,16 @@
 <script>
 import { Form, Button, Input, Row, Col } from 'ant-design-vue'
 import { getCaptcha } from '@/api'
+import CountDown from '@/components/CountDown'
 export default {
   components: {
-    AForm: Form, AFormItem: Form.Item, AButton: Button, AInput: Input, ARow: Row, ACol: Col
+    AForm: Form,
+    AFormItem: Form.Item,
+    AButton: Button,
+    AInput: Input,
+    ARow: Row,
+    ACol: Col,
+    CountDown
   },
   data () {
     return {
@@ -69,7 +69,10 @@ export default {
         }
       })
     },
+
+    // 获取验证码
     async handleGetCaptcha () {
+      this.$refs.count.countDown()
       await getCaptcha().then(({ code, data }) => {
         if (code === 200) {
           console.log(data)
