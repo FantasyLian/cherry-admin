@@ -17,11 +17,11 @@
           :default-value="0"
           @change="onRadioChange"
         >
-          <a-radio :value="0"> 全部 </a-radio>
+          <a-radio value=""> 全部 </a-radio>
           <a-radio :value="1"> 待打赏 </a-radio>
           <a-radio :value="2"> 出售中 </a-radio>
           <a-radio :value="3"> 交易成功 </a-radio>
-          <a-radio :value="4"> 已取消 </a-radio>
+          <a-radio :value="0"> 已取消 </a-radio>
         </a-radio-group>
       </a-form-item>
     </a-form>
@@ -53,7 +53,7 @@ export default {
       dataTable: [],
       columns,
       keywords: '',
-      status: '0'
+      status: ''
     }
   },
   mounted () {
