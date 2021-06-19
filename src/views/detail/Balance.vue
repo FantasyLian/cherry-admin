@@ -9,7 +9,7 @@
       <a-form-item label="账号：">
         <a-input
           placeholder="请输入要查询手机号"
-          v-decorator="[ 'mobile', { rules: [{ required: false, message: 'Pleaseinput yournickname' }] } ]"
+          v-decorator="[ 'mobile', { rules: [{ required: false, message: 'Pleaseinput your nickname' }] } ]"
         />
       </a-form-item>
       <a-form-item label="类型：">
