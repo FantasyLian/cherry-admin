@@ -31,21 +31,6 @@ export function login (data) {
 }
 
 /**
- * 首页信息
- * @param {*} data
- * @returns
- */
-export function getHomeInfo (params) {
-  return new Promise((resolve, reject) => {
-    request({ url: '/home/info', method: 'GET', params }).then(res => {
-      resolve(res.data)
-    }).catch(err => {
-      reject(err)
-    })
-  })
-}
-
-/**
  * 买家订单列表
  * @param {*} params
  * @returns
@@ -113,6 +98,36 @@ export function getWithdrawal (params) {
 export function getUserInfo (params) {
   return new Promise((resolve, reject) => {
     request({ url: '/user/infoList', method: 'GET', params }).then(res => {
+      resolve(res.data)
+    }).catch(err => {
+      reject(err)
+    })
+  })
+}
+
+/**
+ * 首页
+ * @param {*} params
+ * @returns
+ */
+export function getHomeInfo () {
+  return new Promise((resolve, reject) => {
+    request({ url: '/home/info', method: 'GET' }).then(res => {
+      resolve(res.data)
+    }).catch(err => {
+      reject(err)
+    })
+  })
+}
+
+/**
+ * 每月充值统计数据
+ * @param {*} params
+ * @returns
+ */
+export function getMonthRecharge (params) {
+  return new Promise((resolve, reject) => {
+    request({ url: '/home/Statistic/recharge/month', method: 'GET', params }).then(res => {
       resolve(res.data)
     }).catch(err => {
       reject(err)

@@ -49,20 +49,18 @@
       <div class="select-wrap">
         <h2>每月充值统计</h2>
         <div class="select-charts">
-          <span>2020年人工充值：¥74,238,987</span>
-          <a-select
-            default-value="2020"
-            class="select-filter"
-            @change="handleChange"
-          >
-            <a-select-option value="2019"> 2019年 </a-select-option>
-            <a-select-option value="2020"> 2020年 </a-select-option>
+          <span>{{this.year}}年人工充值：¥{{yearCharge}}</span>
+          <a-select default-value="2021" v-model="year" class="select-filter" @change="handleChange">
             <a-select-option value="2021"> 2021年 </a-select-option>
             <a-select-option value="2022"> 2022年 </a-select-option>
+            <a-select-option value="2023"> 2023年 </a-select-option>
+            <a-select-option value="2024"> 2024年 </a-select-option>
+            <a-select-option value="2025"> 2025年 </a-select-option>
           </a-select>
         </div>
       </div>
-      <echart ref="chart" :options="chartOptions" />
+      <!-- 报表 -->
+      <echart ref="chart" :options="options" />
     </div>
   </section>
 </template>
@@ -71,7 +69,7 @@
 import Echart from '@/components/LineChart'
 import { chartOptions } from '@/assets/data/options'
 import { Row, Col, Card, Select } from 'ant-design-vue'
-import { getHomeInfo } from '@/api'
+import { getHomeInfo, getMonthRecharge } from '@/api/index'
 export default {
   name: 'Home',
   components: {
@@ -85,21 +83,40 @@ export default {
   data () {
     return {
       chartOptions,
-      dashBoard: {}
+      options: {},
+      dashBoard: {},
+      year: '2021',
+      yearCharge: 0
     }
   },
-  mounted () {
-    this.initDashBoard()
+  created () {
+    this.getHomeBarData()
+    this.MonthRecharge()
   },
   methods: {
-    handleChange () {
-      this.$refs.chart.drawLine()
+    handleChange (val) {
+      this.year = val
+      this.yearCharge = 0
+      this.MonthRecharge()
     },
-    // 初始化数据看板
-    async initDashBoard () {
+
+    async getHomeBarData () {
       await getHomeInfo().then(({ code, data }) => {
         if (code === 200) {
           this.dashBoard = data
+        }
+      })
+    },
+
+    async MonthRecharge () {
+      await getMonthRecharge({ year: this.year }).then(({ code, data }) => {
+        if (code === 200) {
+          this.chartOptions.xAxis.data = data.map(item => item.yearMonth)
+          this.chartOptions.series[0].data = data.map(item => item.recharge)
+          this.options = this.chartOptions
+          data.forEach(item => {
+            this.yearCharge += item.recharge
+          })
         }
       })
     }
