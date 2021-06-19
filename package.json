@@ -7,7 +7,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "publish:test": "scp -r ./dist/* root@192.168.1.207:/data/web/cherry-admin",
+    "publish:test": "scp -r ./dist/* root@192.168.1.208:/data/web/cherry-admin",
     "publish:prod": "scp -r ./dist/* web@139.224.196.199:/data/web/cherry-admin"
   },
   "dependencies": {
@@ -29,7 +29,7 @@
     "@vue/eslint-config-standard": "^5.1.2",
     "babel-eslint": "^10.1.0",
     "babel-plugin-import": "^1.13.3",
-    "compression-webpack-plugin": "^8.0.0",
+    "compression-webpack-plugin": "5.0.1",
     "eslint": "^6.7.2",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-node": "^11.1.0",
