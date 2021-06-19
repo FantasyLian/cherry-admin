@@ -15,6 +15,9 @@ export default {
       myChart: null
     }
   },
+  beforeDestroy () {
+    this.myChart.dispose()// 释放echarts实例
+  },
   mounted () {
     this.drawLine()
 
@@ -29,7 +32,9 @@ export default {
   },
   methods: {
     drawLine () {
-      this.myChart = echarts.init(document.querySelector('#myChart'))
+      if (this.myChart === null) {
+        this.myChart = echarts.init(document.querySelector('#myChart'))
+      }
       this.myChart.setOption(this.options)
     }
   },
