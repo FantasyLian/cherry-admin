@@ -5,11 +5,6 @@ export const columns = [
     key: 'buyId'
   },
   {
-    title: '购买商品',
-    dataIndex: 'product',
-    key: 'product'
-  },
-  {
     title: '买家联系方式',
     dataIndex: 'wgcMobile',
     key: 'wgcMobile'
