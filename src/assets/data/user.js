@@ -4,7 +4,7 @@ export const columns = [
     dataIndex: 'mobileNo',
     key: 'mobileNo',
     scopedSlots: {
-      customRender: 'info'
+      customRender: 'mobileNo'
     }
   },
   {
@@ -19,7 +19,7 @@ export const columns = [
     key: 'certNo',
     ellipsis: true,
     scopedSlots: {
-      customRender: 'info'
+      customRender: 'certNo'
     }
   },
   {
@@ -27,7 +27,7 @@ export const columns = [
     dataIndex: 'sellCount',
     key: 'sellCount',
     scopedSlots: {
-      customRender: 'info'
+      customRender: 'sellCount'
     }
   },
   {
@@ -36,7 +36,7 @@ export const columns = [
     key: 'buyCount',
     ellipsis: true,
     scopedSlots: {
-      customRender: 'info'
+      customRender: 'buyCount'
     }
   },
   {
@@ -45,7 +45,7 @@ export const columns = [
     key: 'totalOrderIncome',
     ellipsis: true,
     scopedSlots: {
-      customRender: 'info'
+      customRender: 'totalOrderIncome'
     }
   },
   {
@@ -54,7 +54,7 @@ export const columns = [
     key: 'totalWithdrawal',
     ellipsis: true,
     scopedSlots: {
-      customRender: 'info'
+      customRender: 'totalWithdrawal'
     }
   }
 ]

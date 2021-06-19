@@ -49,8 +49,7 @@
     >
       <a slot="name" slot-scope="text">{{ text }}</a>
       <div slot="auth" slot-scope="auth">
-        <span v-if="auth === null"> - </span>
-        <span v-else> {{auth}} </span>
+        <span> {{auth || '-'}} </span>
       </div>
     </a-table>
   </div>

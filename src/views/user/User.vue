@@ -11,17 +11,38 @@
         />
       </a-form-item>
     </a-form>
-    <a-table :columns="columns" :data-source="dataTable" :rowKey="(record, index) => { return index }">
+    <a-table
+      :columns="columns"
+      :data-source="dataTable"
+      :rowKey="
+        (record, index) => {
+          return index
+        }
+      "
+    >
       <a slot="name" slot-scope="text">{{ text }}</a>
       <div slot="auth" slot-scope="auth">
         <span v-if="auth === true" style="color: #1890ff"> 已认证 </span>
         <span v-else> 未认证 </span>
       </div>
-      <div slot="info" slot-scope="info">
-        <span v-if="info === null"> - </span>
-        <span v-else> {{info}} </span>
+      <div slot="mobileNo" slot-scope="mobileNo">
+        <span> {{ mobileNo || '-' }} </span>
       </div>
-
+      <div slot="certNo" slot-scope="certNo">
+        <span> {{ certNo || '-' }} </span>
+      </div>
+      <div slot="sellCount" slot-scope="sellCount">
+        <span> {{ sellCount || '-' }} </span>
+      </div>
+      <div slot="buyCount" slot-scope="buyCount">
+        <span> {{ buyCount || '-' }} </span>
+      </div>
+      <div slot="totalOrderIncome" slot-scope="totalOrderIncome">
+        <span> {{ totalOrderIncome || '-' }} </span>
+      </div>
+      <div slot="totalWithdrawal" slot-scope="totalWithdrawal">
+        <span> {{ totalWithdrawal || '-' }} </span>
+      </div>
     </a-table>
   </div>
 </template>
