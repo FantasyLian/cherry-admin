@@ -48,6 +48,10 @@
       "
     >
       <a slot="name" slot-scope="text">{{ text }}</a>
+      <div slot="auth" slot-scope="auth">
+        <span v-if="auth === null"> - </span>
+        <span v-else> {{auth}} </span>
+      </div>
     </a-table>
   </div>
 </template>
@@ -99,18 +103,15 @@ export default {
     // 选择日期
     onChange (date, dateString) {
       this.date = dateString
-      // console.log()
     },
     // 选择状态
     handleChange (value) {
       this.type = value
-      // console.log(`selected ${value}`)
     },
     handleSubmit (e) {
       e.preventDefault()
       this.form.validateFields((err, values) => {
         if (!err) {
-          console.log(values)
           this.mobile = values.mobile
           this.getWithdrawalList()
         }
