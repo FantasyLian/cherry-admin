@@ -17,7 +17,8 @@ export const columns = [
   {
     title: '售出时间',
     dataIndex: 'finishTime',
-    key: 'finishTime'
+    key: 'finishTime',
+    scopedSlots: { customRender: 'finishTime' }
   },
   {
     title: '数量（颗）',

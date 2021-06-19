@@ -2,21 +2,11 @@
   <div class="page-content">
     <a-form>
       <a-form-item class="search-wrap">
-        <a-input-search
-          placeholder="请输入搜索的订单编号/手机账号"
-          enter-button="搜索"
-          :maxLength="100"
-          size="large"
-          @search="onSearch"
-        />
+        <a-input-search placeholder="请输入搜索的订单编号/手机账号" enter-button="搜索" :maxLength="100" size="large" @search="onSearch" />
       </a-form-item>
       <a-form-item>
         <span>状态：</span>
-        <a-radio-group
-          name="radioGroup"
-          :default-value="0"
-          @change="onRadioChange"
-        >
+        <a-radio-group name="radioGroup" :default-value="0" @change="onRadioChange">
           <a-radio value=""> 全部 </a-radio>
           <a-radio :value="1"> 待打赏 </a-radio>
           <a-radio :value="2"> 出售中 </a-radio>
@@ -25,16 +15,15 @@
         </a-radio-group>
       </a-form-item>
     </a-form>
-    <a-table
-      :columns="columns"
-      :data-source="dataTable"
-      :rowKey="
+    <a-table :columns="columns" :data-source="dataTable" :rowKey="
         (record, index) => {
           return index;
         }
-      "
-    >
+      ">
       <a slot="name" slot-scope="text">{{ text }}</a>
+      <template slot="finishTime" slot-scope="finishTime">
+        <span>{{ finishTime || '-'}}</span>
+      </template>
     </a-table>
   </div>
 </template>

@@ -2,13 +2,7 @@
   <div class="page-content">
     <a-form :inline="true" class="search-wrap">
       <a-form-item>
-        <a-input-search
-          placeholder="请输入搜索的订单编号/手机账号"
-          enter-button="搜索"
-          :maxLength="100"
-          size="large"
-          @search="onSearch"
-        />
+        <a-input-search placeholder="请输入搜索的订单编号/手机账号" enter-button="搜索" :maxLength="100" size="large" @search="onSearch" />
       </a-form-item>
     </a-form>
     <a-table :columns="columns" :data-source="dataTable" :rowKey="(record, index) => { return index }">
