@@ -7,7 +7,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "publish:test": "scp -r ./dist/* root@192.168.1.208:/data/web/cherry-admin",
+    "publish:test": "scp -r ./dist/* root@192.168.1.207:/data/web/cherry-admin",
     "publish:prod": "scp -r ./dist/* web@139.224.196.199:/data/web/cherry-admin"
   },
   "dependencies": {
