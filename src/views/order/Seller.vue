@@ -12,7 +12,11 @@
       </a-form-item>
       <a-form-item>
         <span>状态：</span>
-        <a-radio-group name="radioGroup" :default-value="0">
+        <a-radio-group
+          name="radioGroup"
+          :default-value="0"
+          @change="onRadioChange"
+        >
           <a-radio :value="0"> 全部 </a-radio>
           <a-radio :value="1"> 待打赏 </a-radio>
           <a-radio :value="2"> 出售中 </a-radio>
@@ -21,7 +25,15 @@
         </a-radio-group>
       </a-form-item>
     </a-form>
-    <a-table :columns="columns" :data-source="dataTable">
+    <a-table
+      :columns="columns"
+      :data-source="dataTable"
+      :rowKey="
+        (record, index) => {
+          return index;
+        }
+      "
+    >
       <a slot="name" slot-scope="text">{{ text }}</a>
     </a-table>
   </div>
@@ -29,39 +41,8 @@
 <script>
 import { Form, Input, Table, Radio } from 'ant-design-vue'
 import { columns } from '@/assets/data/seller'
+import { getSellerOrder } from '@/api'
 
-const dataTable = [
-  {
-    key: '1',
-    orderId: '66576534567785',
-    product: '宝石',
-    sellerAccount: '134 8383 2831',
-    createTime: '2020.06.25  18:34:12',
-    tradingTime: '2020.06.25  18:34:14',
-    account: '1961 9023',
-    quantity: '100000000',
-    unitPrice: '0.9',
-    WGCAccount: '18575597667',
-    totalPrice: '90,000,000',
-    income: '80,000,000',
-    status: '已完成'
-  },
-  {
-    key: '2',
-    orderId: '66576534567785',
-    product: '宝石',
-    sellerAccount: '134 8383 2831',
-    createTime: '2020.06.25  18:34:12',
-    tradingTime: '2020.06.25  18:34:14',
-    account: '1961 9023',
-    quantity: '100000000',
-    unitPrice: '0.9',
-    WGCAccount: '18575597667',
-    totalPrice: '90,000,000',
-    income: '80,000,000',
-    status: '已完成'
-  }
-]
 export default {
   name: 'Seller',
   components: {
@@ -69,13 +50,29 @@ export default {
   },
   data () {
     return {
-      dataTable,
-      columns
+      dataTable: [],
+      columns,
+      keywords: '',
+      status: '0'
     }
+  },
+  mounted () {
+    this.initList()
   },
   methods: {
     onSearch (value) {
-      console.log(value)
+      this.initList(value, this.status)
+    },
+    onRadioChange (e) {
+      const status = e.target.value.toString()
+      this.initList('', status)
+    },
+    async initList (words, status) {
+      await getSellerOrder({ queryVal: words, status: status }).then(({ code, data }) => {
+        if (code === 200) {
+          this.dataTable = data
+        }
+      })
     }
   }
 }
