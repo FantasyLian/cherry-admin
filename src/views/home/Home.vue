@@ -4,42 +4,42 @@
       <a-row :gutter="16">
         <a-col :span="8">
           <a-card hoverable class="card-wrap">
-            <h3><small>¥</small>200,000</h3>
+            <h3><small>¥</small>{{ dashBoard.todayTotalRechargeAmount }}</h3>
             <p>今日充值</p>
-            <p>比昨日增加了<small>¥</small>10,000</p>
+            <p>比昨日增加了<small>¥</small> {{ dashBoard.todayRechargeAmountCompareYesterday }}</p>
           </a-card>
         </a-col>
         <a-col :span="8">
           <a-card hoverable class="card-wrap">
-            <h3><small>¥</small>19,340</h3>
+            <h3><small>¥</small>{{ dashBoard.todayWithdrawal }}</h3>
             <p>今日提现</p>
-            <p>比昨日减少了<small>¥</small>10,000</p>
+            <p>比昨日减少了<small>¥</small> {{ dashBoard.todayWithdrawalCompareYesterday }}</p>
           </a-card>
         </a-col>
         <a-col :span="8">
           <a-card hoverable class="card-wrap">
-            <h3><small>¥</small>3,400</h3>
+            <h3><small>¥</small>{{ dashBoard.todayTradeAmount }}</h3>
             <p>今日交易额</p>
-            <p>比昨日减少了<small>¥</small>10,000</p>
+            <p>比昨日减少了<small>¥</small> {{ dashBoard.todayTradeAmountCompareYesterday }}</p>
           </a-card>
         </a-col>
       </a-row>
       <a-row :gutter="16">
         <a-col :span="8">
           <a-card hoverable class="card-wrap">
-            <h3><small>¥</small>15,000</h3>
+            <h3><small>¥</small>{{ dashBoard.totalCharge }}</h3>
             <p>车厘子手续费</p>
           </a-card>
         </a-col>
         <a-col :span="8">
           <a-card hoverable class="card-wrap">
-            <h3><small>¥</small>219,340</h3>
+            <h3><small>¥</small>{{ dashBoard.totalWithdrawal }}</h3>
             <p>提现总额</p>
           </a-card>
         </a-col>
         <a-col :span="8">
           <a-card hoverable class="card-wrap">
-            <h3><small>¥</small>22,100,500</h3>
+            <h3><small>¥</small>{{ dashBoard.totalRechargeAmount }}</h3>
             <p>充值总额</p>
           </a-card>
         </a-col>
@@ -71,6 +71,7 @@
 import Echart from '@/components/LineChart'
 import { chartOptions } from '@/assets/data/options'
 import { Row, Col, Card, Select } from 'ant-design-vue'
+import { getHomeInfo } from '@/api'
 export default {
   name: 'Home',
   components: {
@@ -83,12 +84,24 @@ export default {
   },
   data () {
     return {
-      chartOptions
+      chartOptions,
+      dashBoard: {}
     }
+  },
+  mounted () {
+    this.initDashBoard()
   },
   methods: {
     handleChange () {
       this.$refs.chart.drawLine()
+    },
+    // 初始化数据看板
+    async initDashBoard () {
+      await getHomeInfo().then(({ code, data }) => {
+        if (code === 200) {
+          this.dashBoard = data
+        }
+      })
     }
   }
 }
