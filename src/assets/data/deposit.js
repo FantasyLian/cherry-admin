@@ -25,10 +25,7 @@ export const columns = [
     title: '支付宝账号',
     dataIndex: 'alipayUid',
     key: 'alipayUid',
-    ellipsis: true,
-    scopedSlots: {
-      customRender: 'pay'
-    }
+    ellipsis: true
   },
   {
     title: '时间',

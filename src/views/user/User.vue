@@ -11,7 +11,7 @@
         />
       </a-form-item>
     </a-form>
-    <a-table :columns="columns" :data-source="dataTable" rowKey="userId">
+    <a-table :columns="columns" :data-source="dataTable" :rowKey="(record, index) => { return index }">
       <a slot="name" slot-scope="text">{{ text }}</a>
       <div slot="auth" slot-scope="auth">
         <span v-if="auth === true" style="color: #1890ff"> 已认证 </span>
