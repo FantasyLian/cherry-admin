@@ -5,11 +5,6 @@ export const columns = [
     key: 'productId'
   },
   {
-    title: '出售商品',
-    dataIndex: 'product',
-    key: 'product'
-  },
-  {
     title: '卖家账号',
     dataIndex: 'userId',
     key: 'userId'
