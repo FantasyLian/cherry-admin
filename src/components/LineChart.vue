@@ -38,6 +38,14 @@ export default {
       setTimeout(() => {
         this.myChart.resize()
       }, 300)
+    },
+
+    options: { // 监听的对象
+      deep: true, // 深度监听设置为 true
+      handler: function () {
+        this.drawLine()
+        this.myChart.resize()
+      }
     }
   }
 }

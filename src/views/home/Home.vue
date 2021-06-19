@@ -4,42 +4,42 @@
       <a-row :gutter="16">
         <a-col :span="8">
           <a-card hoverable class="card-wrap">
-            <h3><small>¥</small>200,000</h3>
+            <h3><small>¥</small>{{barData.todayTotalRechargeAmount}}</h3>
             <p>今日充值</p>
-            <p>比昨日增加了<small>¥</small>10,000</p>
+            <p>比昨日增加了<small>¥</small>{{barData.todayRechargeAmountCompareYesterday}}</p>
           </a-card>
         </a-col>
         <a-col :span="8">
           <a-card hoverable class="card-wrap">
-            <h3><small>¥</small>19,340</h3>
+            <h3><small>¥</small>{{barData.todayWithdrawal}}</h3>
             <p>今日提现</p>
-            <p>比昨日减少了<small>¥</small>10,000</p>
+            <p>比昨日减少了<small>¥</small>{{barData.todayWithdrawalCompareYesterday}}</p>
           </a-card>
         </a-col>
         <a-col :span="8">
           <a-card hoverable class="card-wrap">
-            <h3><small>¥</small>3,400</h3>
+            <h3><small>¥</small>{{barData.todayTradeAmount}}</h3>
             <p>今日交易额</p>
-            <p>比昨日减少了<small>¥</small>10,000</p>
+            <p>比昨日减少了<small>¥</small>{{barData.todayTradeAmountCompareYesterday}}</p>
           </a-card>
         </a-col>
       </a-row>
       <a-row :gutter="16">
         <a-col :span="8">
           <a-card hoverable class="card-wrap">
-            <h3><small>¥</small>15,000</h3>
+            <h3><small>¥</small>{{barData.totalCharge}}</h3>
             <p>车厘子手续费</p>
           </a-card>
         </a-col>
         <a-col :span="8">
           <a-card hoverable class="card-wrap">
-            <h3><small>¥</small>219,340</h3>
+            <h3><small>¥</small>{{barData.totalWithdrawal}}</h3>
             <p>提现总额</p>
           </a-card>
         </a-col>
         <a-col :span="8">
           <a-card hoverable class="card-wrap">
-            <h3><small>¥</small>22,100,500</h3>
+            <h3><small>¥</small>{{barData.totalRechargeAmount}}</h3>
             <p>充值总额</p>
           </a-card>
         </a-col>
@@ -49,20 +49,18 @@
       <div class="select-wrap">
         <h2>每月充值统计</h2>
         <div class="select-charts">
-          <span>2020年人工充值：¥74,238,987</span>
-          <a-select
-            default-value="2020"
-            class="select-filter"
-            @change="handleChange"
-          >
-            <a-select-option value="2019"> 2019年 </a-select-option>
-            <a-select-option value="2020"> 2020年 </a-select-option>
+          <span>{{this.year}}年人工充值：¥{{yearCharge}}</span>
+          <a-select default-value="2021" v-model="year" class="select-filter" @change="handleChange">
             <a-select-option value="2021"> 2021年 </a-select-option>
             <a-select-option value="2022"> 2022年 </a-select-option>
+            <a-select-option value="2023"> 2023年 </a-select-option>
+            <a-select-option value="2024"> 2024年 </a-select-option>
+            <a-select-option value="2025"> 2025年 </a-select-option>
           </a-select>
         </div>
       </div>
-      <echart ref="chart" :options="chartOptions" />
+      <!-- 报表 -->
+      <echart ref="chart" :options="options" />
     </div>
   </section>
 </template>
@@ -71,6 +69,7 @@
 import Echart from '@/components/LineChart'
 import { chartOptions } from '@/assets/data/options'
 import { Row, Col, Card, Select } from 'ant-design-vue'
+import { getHomeInfo, getMonthRecharge } from '@/api/index'
 export default {
   name: 'Home',
   components: {
@@ -83,12 +82,43 @@ export default {
   },
   data () {
     return {
-      chartOptions
+      chartOptions,
+      options: {},
+      barData: {},
+      year: '2021',
+      yearCharge: 0
     }
   },
+  created () {
+    this.getHomeBarData()
+    this.MonthRecharge()
+  },
   methods: {
-    handleChange () {
-      this.$refs.chart.drawLine()
+    handleChange (val) {
+      this.year = val
+      this.yearCharge = 0
+      this.MonthRecharge()
+    },
+
+    async getHomeBarData () {
+      await getHomeInfo().then(({ code, data }) => {
+        if (code === 200) {
+          this.barData = data
+        }
+      })
+    },
+
+    async MonthRecharge () {
+      await getMonthRecharge({ year: this.year }).then(({ code, data }) => {
+        if (code === 200) {
+          this.chartOptions.xAxis.data = data.map(item => item.yearMonth)
+          this.chartOptions.series[0].data = data.map(item => item.recharge)
+          this.options = this.chartOptions
+          data.forEach(item => {
+            this.yearCharge += item.recharge
+          })
+        }
+      })
     }
   }
 }
