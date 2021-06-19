@@ -17,6 +17,11 @@
         <span v-if="auth === true" style="color: #1890ff"> 已认证 </span>
         <span v-else> 未认证 </span>
       </div>
+      <div slot="info" slot-scope="info">
+        <span v-if="info === null"> - </span>
+        <span v-else> {{info}} </span>
+      </div>
+
     </a-table>
   </div>
 </template>
