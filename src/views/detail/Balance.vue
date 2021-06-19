@@ -15,8 +15,8 @@
       <a-form-item label="类型：">
         <a-select default-value="" style="width: 120px" @change="handleChange">
           <a-select-option value=""> 全部 </a-select-option>
-          <a-select-option value="12"> 充值 </a-select-option>
-          <a-select-option value="2"> 可提现金额 </a-select-option>
+          <a-select-option value="13"> 充值 </a-select-option>
+          <a-select-option value="12"> 可提现金额 </a-select-option>
           <a-select-option value="1"> 购买宝石 </a-select-option>
         </a-select>
       </a-form-item>
