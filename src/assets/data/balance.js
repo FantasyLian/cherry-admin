@@ -1,24 +1,24 @@
 export const columns = [
   {
     title: '充值号码',
-    dataIndex: 'phoneNum',
-    key: 'phoneNum'
+    dataIndex: 'mobileNo',
+    key: 'mobileNo'
   },
   {
     title: '用户昵称',
-    dataIndex: 'nickname',
-    key: 'nickname'
+    dataIndex: 'name',
+    key: 'name'
   },
   {
     title: '充值金额（元）',
-    dataIndex: 'rechargeMoney',
-    key: 'rechargeMoney',
+    dataIndex: 'amount',
+    key: 'amount',
     ellipsis: true
   },
   {
     title: '来源',
-    dataIndex: 'source',
-    key: 'source',
+    dataIndex: 'typeVal',
+    key: 'typeVal',
     ellipsis: true
   },
   {

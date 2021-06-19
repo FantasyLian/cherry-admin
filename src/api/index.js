@@ -68,6 +68,23 @@ export function getWithdrawal (params) {
 }
 
 /**
+ * 余额明细
+ * @param {*} params
+ * @returns
+ */
+export function getBalance (params) {
+  return new Promise((resolve, reject) => {
+    request({ url: '/record/trade/list', method: 'GET', params })
+      .then(res => {
+        resolve(res.data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
+
+/**
  * 买家订单列表
  * @param {*} params
  * @returns
