@@ -1,6 +1,7 @@
 import axios from 'axios'
 import local from '@/utils/local'
 import Config from '@/setting'
+import router from '@/router'
 import { Message } from 'ant-design-vue'
 
 function startLoading () {
@@ -42,9 +43,11 @@ instance.interceptors.response.use(
     const { status } = response
     if (status === 200) {
       if (response.data.code === 600) {
-        Message.warn({ content: '请重新登录', duration: 1500 })
+        Message.warn({ content: '请重新登录' })
+        router.push('/login')
+        local.clear()
       } else if (response.data.code !== 200) {
-        Message.warn({ content: response.data.msg, duration: 1500 })
+        Message.warn({ content: response.data.msg })
       }
     }
     return response
