@@ -6,7 +6,7 @@
       </a-form-item>
       <a-form-item>
         <span>状态：</span>
-        <a-radio-group name="radioGroup" :default-value="0" @change="onRadioChange">
+        <a-radio-group name="radioGroup" :default-value="''" @change="onRadioChange">
           <a-radio value=""> 全部 </a-radio>
           <a-radio :value="1"> 待打赏 </a-radio>
           <a-radio :value="2"> 出售中 </a-radio>
